@@ -3,7 +3,7 @@
 <form method="POST" action="/usuarios">
     @csrf
 
-    <input type="text" name="name" placeholder="Nome"><br><br>
+    <input type="text" name="nome" placeholder="Nome"><br><br>
 
     <input type="email" name="email" placeholder="Email"><br><br>
 

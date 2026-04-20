@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 
+use Ramsey\Uuid\Uuid;
+
+// use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\DB;
 
 
@@ -23,20 +25,23 @@ class UserController extends Controller
     // Receber os dados do formulário
     public function store(Request $request)
     {
-            DB::table('usuarios')->insert([
-            'nome' => $request->nome,
-            'email' => $request->email,
-            'senha' => Hash::make($request->password),
+            // DB::table('usuarios')->insert([
+            Usuario::create([
+                'id' => Uuid::uuid4()->toString(),
+                'nome' => $request->nome,
+                'email' => $request->email,
+                'senha' => Hash::make($request->password),
         ]);
 
-       return redirect('/usuarios')->with('success', 'Usuário cadastrado!');
+       return to_route('usuarios.index')->with('success', 'Usuário cadastrado!');
     }
 
 
     public function index()
     {
-        $usuarios = DB::table('usuarios')->get();
-
+        // $usuarios = DB::table('usuarios')->get();
+        
+        $usuarios = Usuario::all();
         return view('usuarios.index', compact('usuarios'));
     }
 

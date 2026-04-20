@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('nome');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('senha');
             $table->timestamps();
         });
@@ -22,6 +22,7 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     * No momento que faz um roolback (php artisan migrate:rollback)***
      */
     public function down(): void
     {
