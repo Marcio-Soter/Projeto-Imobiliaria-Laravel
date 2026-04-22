@@ -39,7 +39,9 @@ class UserController extends Controller
 
     public function index()
     {
-        // $usuarios = DB::table('usuarios')->get();
+        if (session('usuario_tipo') !== 'admin') {
+        return redirect('/');
+        }
         
         $usuarios = Usuario::all();
         return view('usuarios.index', compact('usuarios'));
