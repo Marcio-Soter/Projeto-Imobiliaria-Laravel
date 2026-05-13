@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 
-use Ramsey\Uuid\Uuid;
+// use Ramsey\Uuid\Uuid;
 
 // use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\DB;
@@ -27,10 +27,12 @@ class UserController extends Controller
     {
             // DB::table('usuarios')->insert([
             Usuario::create([
-                'id' => Uuid::uuid4()->toString(),
+                // 'id' => Uuid::uuid4()->toString(),
                 'nome' => $request->nome,
                 'email' => $request->email,
-                'senha' => Hash::make($request->password),
+                // 'senha' => Hash::make($request->password),
+                'senha' => $request->password,
+                'tipo' => 'user',
         ]);
 
        return to_route('usuarios.index')->with('success', 'Usuário cadastrado!');
@@ -39,9 +41,9 @@ class UserController extends Controller
 
     public function index()
     {
-        if (session('usuario_tipo') !== 'admin') {
-        return redirect('/');
-        }
+        // if (session('usuario_tipo') !== 'admin') {
+        // return redirect('/');
+        // }
         
         $usuarios = Usuario::all();
         return view('usuarios.index', compact('usuarios'));

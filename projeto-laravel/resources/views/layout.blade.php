@@ -11,6 +11,30 @@
 
 @include('header')
 
+
+
+<!-- INÍCIO DO BLOCO DE MENSAGENS -->
+<div class="max-w-5xl mx-auto mt-4 px-4">
+    
+    {{-- Mensagem de Erro --}}
+    @if(session('erro'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong class="font-bold">Aviso:</strong>
+            <span class="block sm:inline">{{ session('erro') }}</span>
+        </div>
+    @endif
+
+    {{-- Mensagem de Sucesso (como "Usuário cadastrado!") --}}
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    @endif
+
+</div>
+<!-- FIM DO BLOCO DE MENSAGENS -->
+
+
 <div class="p-4">
     @yield('content')
 </div>

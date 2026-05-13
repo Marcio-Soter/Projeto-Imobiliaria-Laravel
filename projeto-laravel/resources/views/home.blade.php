@@ -2,8 +2,10 @@
 
 @section('content')
 
-<div class="flex flex-col items-center justify-center p-10 text-center">
-    
+<div class="min-h-screen flex flex-col items-center justify-center p-10 text-center 
+            bg-cover bg-center"
+     style="background-image: url('/images/166.jpg');">
+     
     <h1 class="text-3xl font-bold mb-4">
         Bem-vindo ao sistema
     </h1>
