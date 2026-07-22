@@ -32,7 +32,7 @@ public function login(Request $request)
 
             // LOGICA DE REDIRECIONAMENTO:
         if ($usuario->tipo === 'admin') {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
         // Se for usuário comum, manda para a Home, onde ele tem permissão
         return redirect()->route('home');

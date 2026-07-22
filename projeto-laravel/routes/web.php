@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\VerifyAuthentication;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ImovelController;
 
 
 // Route::get('/', function () {
@@ -31,6 +33,13 @@ Route::middleware([VerifyAuthentication::class])->group(function() {
     
 });
 
+
+
+
+Route::get('/dashboard', [AdminController::class, 'index'])
+    ->name('dashboard');
+
+Route::resource('imoveis', ImovelController::class);
 
     
 //Rotas públicas:
