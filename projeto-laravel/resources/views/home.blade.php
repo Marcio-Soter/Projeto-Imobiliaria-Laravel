@@ -66,26 +66,40 @@
 
         <div class="grid md:grid-cols-3 gap-8">
 
-            @for($i=1;$i<=3;$i++)
+            @foreach($imoveis as $imovel)
 
             <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
 
-                <img
-                    src="https://picsum.photos/600/400?random={{ $i }}"
-                    class="w-full h-64 object-cover">
+                @php
+                $capa = $imovel->fotos->where('capa', true)->first();
+            @endphp
+
+            @if($capa)
+
+            <img
+                src="{{ asset('storage/'.$capa->foto) }}"
+                class="w-full h-64 object-cover">
+
+            @else
+
+            <img
+                src="https://via.placeholder.com/600x400"
+                class="w-full h-64 object-cover">
+
+            @endif
 
                 <div class="p-6">
 
                     <h3 class="text-2xl font-semibold">
-                        Casa Moderna
+                        {{ $imovel->titulo }}
                     </h3>
 
                     <p class="text-gray-500 mt-2">
-                        Feira de Santana - BA
+                        {{ $imovel->cidade }} - {{ $imovel->bairro }}
                     </p>
 
                     <div class="text-3xl text-green-600 font-bold mt-4">
-                        R$ 450.000
+                        R$ {{ number_format($imovel->valor, 2, ',', '.') }}
                     </div>
 
                     <div class="flex justify-between mt-6 text-gray-600">
@@ -107,7 +121,7 @@
 
             </div>
 
-            @endfor
+            @endforeach
 
         </div>
 

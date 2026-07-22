@@ -66,9 +66,10 @@
                 </label>
 
                 <input
-                    type="number"
+                    type="text"
                     name="valor"
-                    class="w-full border rounded-lg p-3">
+                    class="w-full border rounded-lg p-3"
+                    placeholder="Ex: 450000,00">
 
             </div>
 

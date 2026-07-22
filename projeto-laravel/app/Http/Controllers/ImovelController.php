@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Imovel;
 use Illuminate\Support\Str;
+use App\Models\ImovelFoto;
+use Illuminate\Support\Facades\Storage;
 
 class ImovelController extends Controller
 {
@@ -13,7 +15,7 @@ class ImovelController extends Controller
      */
     public function index()
     {
-        $imoveis = Imovel::latest()->get();
+        $imoveis = Imovel::with('fotos')->latest()->get();
         return view('admin.imoveis.index', compact('imoveis'));
     }
 
@@ -34,12 +36,14 @@ class ImovelController extends Controller
             'titulo' => 'required|max:255',
             'tipo' => 'required',
             'finalidade' => 'required',
-            'valor' => 'required|numeric',
+            'valor' => 'required',
             'cidade' => 'required|max:100',
             'bairro' => 'required|max:100',
+            'fotos.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
-        Imovel::create([
+            // Imovel::create([
+            $imovel = Imovel::create([
 
             'titulo' => $request->titulo,
 
@@ -53,7 +57,7 @@ class ImovelController extends Controller
 
             'nome_condominio' => null,
 
-            'valor' => $request->valor,
+            'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
 
             'cidade' => $request->cidade,
 
@@ -78,6 +82,26 @@ class ImovelController extends Controller
             'ativo' => true
 
         ]);
+
+
+            if ($request->hasFile('fotos')) {
+
+           foreach ($request->file('fotos') as $indice => $foto) {
+
+            $caminho = $foto->store('imoveis', 'public');
+
+            ImovelFoto::create([
+                'imovel_id' => $imovel->id,
+                'foto'      => $caminho,
+                'capa'      => $indice == 0,
+                'ordem'     => $indice + 1,
+            ]);
+
+        }
+
+}
+
+
 
         return redirect()
             ->route('imoveis.index')

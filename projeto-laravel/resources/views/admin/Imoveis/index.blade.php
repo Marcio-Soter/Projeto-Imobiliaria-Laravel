@@ -25,7 +25,7 @@
         <thead class="bg-gray-100">
 
             <tr>
-
+                <th class="p-4 text-left">Foto</th>
                 <th class="p-4 text-left">Título</th>
                 <th class="p-4 text-left">Tipo</th>
                 <th class="p-4 text-left">Cidade</th>
@@ -41,6 +41,27 @@
 @forelse($imoveis as $imovel)
 
 <tr>
+
+
+        <td class="p-4">
+
+        @php
+            $capa = $imovel->fotos->where('capa', true)->first();
+        @endphp
+
+        @if($capa)
+
+            <img 
+                src="{{ asset('storage/'.$capa->foto) }}"
+                class="w-24 h-16 object-cover rounded-lg">
+
+        @else
+
+            Sem foto
+
+        @endif
+
+    </td>
 
     <td class="p-4">
         {{ $imovel->titulo }}

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ImovelFoto;
 
 class Imovel extends Model
 {
@@ -28,5 +29,10 @@ class Imovel extends Model
         'ativo'
 
     ];
+
+        public function fotos()
+    {
+        return $this->hasMany(ImovelFoto::class);
+    }
 
 }
