@@ -9,12 +9,37 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $imoveis = Imovel::with('fotos')
+        $casas = Imovel::with('fotos')
+            ->where('tipo', 'Casa')
+            ->where('condominio', 0)
             ->where('ativo', true)
             ->latest()
             ->get();
 
-        return view('home', compact('imoveis'));
+        $casasCondominio = Imovel::with('fotos')
+            ->where('tipo', 'Casa')
+            ->where('condominio', 1)
+            ->where('ativo', true)
+            ->latest()
+            ->get();
 
+        $apartamentos = Imovel::with('fotos')
+            ->where('tipo', 'Apartamento')
+            ->where('ativo', true)
+            ->latest()
+            ->get();
+
+        $terrenos = Imovel::with('fotos')
+            ->where('tipo', 'Terreno')
+            ->where('ativo', true)
+            ->latest()
+            ->get();
+
+        return view('home', compact(
+            'casas',
+            'casasCondominio',
+            'apartamentos',
+            'terrenos'
+        ));
     }
 }

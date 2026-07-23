@@ -8,6 +8,13 @@
 
     <div class="flex items-center gap-4">
 
+
+        <a href="{{ route('home') }}"
+           class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg">
+
+            Página inicial
+
+        </a>
       
 
         <form method="POST" action="{{ route('logout') }}">

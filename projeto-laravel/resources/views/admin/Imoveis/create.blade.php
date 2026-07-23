@@ -62,6 +62,37 @@
             <div>
 
                 <label class="block mb-2 font-semibold">
+                    Faz parte de um Condomínio?
+                </label>
+
+                <select
+                    name="condominio"
+                    class="w-full border rounded-lg p-3">
+
+                    <option value="0">Não</option>
+                    <option value="1">Sim</option>
+
+                </select>
+
+                <div>
+
+                    <label class="block mb-2 font-semibold">
+                        Nome do condomínio
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nome_condominio"
+                        class="w-full border rounded-lg p-3"
+                        placeholder="Ex.: Alphaville">
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <label class="block mb-2 font-semibold">
                     Valor
                 </label>
 

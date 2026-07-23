@@ -53,9 +53,9 @@ class ImovelController extends Controller
 
             'finalidade' => $request->finalidade,
 
-            'condominio' => false,
+            'condominio' => $request->condominio,
 
-            'nome_condominio' => null,
+            'nome_condominio' => $request->nome_condominio,
 
             'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
 
