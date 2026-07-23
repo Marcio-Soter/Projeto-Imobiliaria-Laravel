@@ -119,9 +119,11 @@ class ImovelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+   public function edit(string $id)
     {
-        return view('admin.imoveis.edit');
+        $imovel = Imovel::with('fotos')->findOrFail($id);
+
+        return view('admin.imoveis.edit', compact('imovel'));
     }
 
     /**
@@ -129,7 +131,46 @@ class ImovelController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        // dd($request->all());
+        $imovel = Imovel::findOrFail($id);
+
+        $valor = str_replace('.', '', $request->valor);
+
+        $valor = str_replace(',', '.', $valor);
+
+
+        $imovel->update([
+
+        
+            'titulo' => $request->titulo,
+
+            'tipo' => $request->tipo,
+
+            'finalidade' => $request->finalidade,
+
+            'condominio' => $request->condominio,
+
+            'nome_condominio' => $request->nome_condominio,
+
+            'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
+
+            'cidade' => $request->cidade,
+
+            'bairro' => $request->bairro,
+
+            'quartos' => $request->quartos ?? 0,
+
+            'banheiros' => $request->banheiros ?? 0,
+
+            'descricao' => $request->descricao,
+
+        ]);
+
+
+        return redirect()
+            ->route('imoveis.index')
+            ->with('success', 'Imóvel atualizado com sucesso!');
     }
 
     /**
@@ -137,6 +178,27 @@ class ImovelController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $imovel = Imovel::findOrFail($id);
+
+
+        // Apaga as fotos do imóvel
+        foreach($imovel->fotos as $foto){
+
+            // Remove o arquivo físico do storage
+            Storage::disk('public')->delete($foto->foto);
+
+            // Remove o registro da tabela imovel_fotos
+            $foto->delete();
+
+        }
+
+
+        // Remove o imóvel
+        $imovel->delete();
+
+
+        return redirect()
+            ->route('imoveis.index')
+            ->with('success', 'Imóvel excluído com sucesso!');
     }
 }

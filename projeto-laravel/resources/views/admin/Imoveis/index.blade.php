@@ -80,8 +80,36 @@
     </td>
 
     <td class="p-4 text-center">
-        Editar | Excluir
-    </td>
+
+    <div class="flex justify-center gap-3">
+
+        <a href="{{ route('imoveis.edit', $imovel->id) }}"
+           class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">
+
+            Editar
+
+        </a>
+
+
+        <form action="{{ route('imoveis.destroy', $imovel->id) }}"
+              method="POST">
+
+            @csrf
+            @method('DELETE')
+
+            <button
+                onclick="return confirm('Deseja excluir este imóvel?')"
+                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
+
+                Excluir
+
+            </button>
+
+        </form>
+
+    </div>
+
+</td>
 
 </tr>
 

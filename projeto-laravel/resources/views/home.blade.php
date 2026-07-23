@@ -189,7 +189,7 @@
 <section class="py-20 bg-white">
 
 
-    <div class="max-w-7xl mx-auto px-6>
+    <div class="max-w-7xl mx-auto px-6">
 
 
         <h2 class="text-4xl font-bold text-center mb-12">

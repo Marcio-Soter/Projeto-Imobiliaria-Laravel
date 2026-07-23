@@ -7,9 +7,19 @@
 
     @if($capa)
 
-        <img
+        <div
+ 
+     class="relative overflow-hidden cursor-pointer group rounded-t-xl foto-imovel"
+     data-imovel="{{ $imovel->id }}"
+     data-fotos='@json($imovel->fotos)'>
+
+    <img
             src="{{ asset('storage/'.$capa->foto) }}"
-            class="w-full h-64 object-cover">
+            class="w-full h-64 object-cover transition duration-500 group-hover:scale-110">
+
+        
+
+    </div>
 
     @else
 
@@ -46,6 +56,15 @@
             R$ {{ number_format($imovel->valor, 2, ',', '.') }}
 
         </div>
+
+
+        @if($imovel->descricao)
+
+            <p class="text-gray-600 mt-4 text-sm line-clamp-3">
+                {{ $imovel->descricao }}
+            </p>
+
+        @endif
 
     <div class="grid grid-cols-3 gap-4 mt-6 text-gray-600 border-t pt-4">
 
@@ -88,12 +107,6 @@
 </div>
 
 
-        <button
-            class="mt-6 w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800">
-
-            Ver imóvel
-
-        </button>
 
 
     </div>

@@ -56,6 +56,8 @@
     {{-- Modal de Login --}}
     @include('modal-login')
 
+    @include('modal-galeria')
+
     <script>
 
         function abrirModal() {
@@ -85,6 +87,84 @@
             if(e.key === 'Escape'){
                 fecharModal();
             }
+
+        });
+
+        //modal galeria  das fotos: 
+        function abrirGaleria(imagem){
+
+            document.getElementById('fotoPrincipal').src = imagem;
+
+            document.getElementById('galeriaModal').classList.remove('hidden');
+
+        }
+
+        function fecharGaleria(){
+
+            document.getElementById('galeriaModal').classList.add('hidden');
+
+        }
+
+
+        function mostrarFoto(){
+
+            let foto = fotosGaleria[fotoAtual].foto;
+
+            document.getElementById('fotoPrincipal').src =
+                '/storage/' + foto;
+
+        }
+
+
+        function proximaFoto(){
+
+            fotoAtual++;
+
+            if(fotoAtual >= fotosGaleria.length){
+
+                fotoAtual = 0;
+
+            }
+
+            mostrarFoto();
+
+        }
+
+
+        function fotoAnterior(){
+
+            fotoAtual--;
+
+            if(fotoAtual < 0){
+
+                fotoAtual = fotosGaleria.length - 1;
+
+            }
+
+            mostrarFoto();
+
+        }
+
+
+
+            let fotosGaleria = [];
+
+            let fotoAtual = 0;
+
+            document.querySelectorAll('.foto-imovel').forEach(function(foto){
+
+            foto.addEventListener('click', function(){
+
+               fotosGaleria = JSON.parse(this.dataset.fotos);
+
+                fotoAtual = 0;
+
+                mostrarFoto();
+
+                document
+                    .getElementById('galeriaModal')
+                    .classList.remove('hidden');
+                            });
 
         });
 
